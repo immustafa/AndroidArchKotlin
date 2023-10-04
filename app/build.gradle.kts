@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-parcelize")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
@@ -23,6 +22,8 @@ android {
                 arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
             }
         }
+
+        buildConfigField("String", "API_BASE_URL", project.properties["API_BASE_URL"].toString())
     }
 
     buildTypes {
@@ -49,12 +50,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
-        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        freeCompilerArgs =
+            freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.FlowPreview"
     }
     buildFeatures {
         compose = true
-        dataBinding = true
         buildConfig = true
     }
     composeOptions {
@@ -73,14 +74,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.paging.compose)
-    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.material)
-    implementation(libs.gson)
     implementation(libs.okhttp3.logging.interceptor)
-    implementation(libs.retrofit2.converter.gson)
     implementation(libs.retrofit2)
+    implementation(libs.retrofit2.converter.gson)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.hilt.android)
@@ -97,6 +97,8 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.ui.viewbinding)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.runtime.livedata)

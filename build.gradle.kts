@@ -1,6 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-
 buildscript {
     repositories {
         google()
@@ -16,7 +14,6 @@ buildscript {
 
 plugins {
     id("com.diffplug.spotless") version "6.5.1"
-
 }
 
 spotless {

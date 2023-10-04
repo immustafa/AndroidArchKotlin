@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -34,7 +33,7 @@ fun BottomNav() {
     )
     {
         Modifier.padding(it)
-        BottomNavGraph(
+        BottomNavHost(
             navController = navController
         )
     }
@@ -44,7 +43,8 @@ fun BottomNav() {
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         BottomNavScreen.Home,
-        BottomNavScreen.Profile
+        BottomNavScreen.Artworks,
+        BottomNavScreen.Profile,
     )
 
     val navStackBackEntry by navController.currentBackStackEntryAsState()
@@ -52,7 +52,7 @@ fun BottomBar(navController: NavHostController) {
 
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primary,
-        contentColor = Color.White
+        contentColor = MaterialTheme.colorScheme.tertiary
     ) {
         screens.forEach { screen ->
             AddItem(
@@ -85,7 +85,7 @@ fun RowScope.AddItem(
         label = {
             Text(text = screen.title)
         },
-        alwaysShowLabel = true,
+        alwaysShowLabel = false,
         icon = {
             BadgedBox(
                 badge = {
